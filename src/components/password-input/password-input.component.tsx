@@ -96,7 +96,6 @@ function PasswordInput({
             </p>
           </div>
         ))}
-        {valid && <p className="success">Password is strong and valid!</p>}
       </div>
     </div>
   );
