@@ -1,4 +1,4 @@
-import "./PageIndex.style";
+import styles from "./PageIndex.module.scss";
 import PasswordInput from "@/components/password-input";
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
   };
 
   return (
-    <main className="Main">
+    <main className={styles.Main}>
       <div className="max-w-xl mx-auto my-10 bg-white rounded-lg shadow-md p-5">
         <PasswordInput options={passwordReqs}></PasswordInput>
       </div>
