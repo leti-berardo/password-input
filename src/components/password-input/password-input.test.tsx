@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import PasswordInput from ".";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 describe("PasswordInput component", () => {
   it("Renders with default prop values", () => {
@@ -104,5 +105,49 @@ describe("PasswordInput component", () => {
     expect(
       screen.getByText("Has one or more of these special characters: !@#$%^&*")
     ).toBeInTheDocument();
+  });
+
+  it("should call the onChange callback when the input value changes", () => {
+    const onChangeMock = jest.fn();
+    const { getByTestId } = render(
+      <PasswordInput onChange={onChangeMock} options={{ length: 8 }} />
+    );
+
+    const inputElement = getByTestId("password-input");
+
+    fireEvent.change(inputElement, { target: { value: "newPassword" } });
+
+    expect(onChangeMock).toHaveBeenCalledWith("newPassword");
+  });
+
+  it("should call the isPasswordValid callback when the input value changes", () => {
+    const isPasswordValidMock = jest.fn();
+    const { getByTestId } = render(
+      <PasswordInput isPasswordValid={isPasswordValidMock} />
+    );
+
+    const inputElement = getByTestId("password-input");
+
+    fireEvent.change(inputElement, { target: { value: "newPassword" } });
+
+    expect(isPasswordValidMock).toHaveBeenCalledWith(true);
+  });
+
+  it("should call the isPasswordValid with false when the input value is not valid", () => {
+    const isPasswordValidMock = jest.fn();
+    const { getByTestId } = render(
+      <PasswordInput
+        isPasswordValid={isPasswordValidMock}
+        options={{
+          specialChar: true,
+        }}
+      />
+    );
+
+    const inputElement = getByTestId("password-input");
+
+    fireEvent.change(inputElement, { target: { value: "newPassword" } });
+
+    expect(isPasswordValidMock).toHaveBeenCalledWith(false);
   });
 });

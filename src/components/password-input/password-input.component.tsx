@@ -15,17 +15,16 @@ interface PasswordOptions {
 
 interface PasswordComponentProps {
   isDisabled?: boolean;
-  isPasswordValid?: (valid: boolean) => {};
-  onChange?: (newPass: string) => {};
-  options: PasswordOptions;
+  isPasswordValid?: (valid: boolean) => any;
+  onChange?: (newPass: string) => any;
+  options?: PasswordOptions;
 }
 
 function PasswordInput({
   isDisabled = false,
   onChange,
-  isPasswordValid,
+  isPasswordValid = () => {},
   options = {
-    length: 8,
     uppercase: false,
     number: false,
     specialChar: false,
@@ -34,13 +33,24 @@ function PasswordInput({
   const [password, setPassword] = useState<string>("");
   const [valid, setValid] = useState<boolean>(false);
   const [errors, setErrors] = useState<string[]>([]);
+  const [minPasslength, setMinPassLength] = useState(
+    options.length ? options.length : 8
+  );
 
   useEffect(() => {
     validatePassword();
-  }, [password, options.length]);
+  }, [password]);
+
+  useEffect(() => {
+    isPasswordValid ? isPasswordValid(valid) : null;
+  }, [valid]);
+
+  useEffect(() => {
+    if (options.length) setMinPassLength(options.length);
+  }, [options]);
 
   const passwordRequirements: string[] = [
-    `Password must be at least ${options.length} characters long`,
+    `Password must be at least ${minPasslength} characters long`,
     ...(options.uppercase ? ["Has an uppercase letter"] : []),
     ...(options.number ? ["Has a number 0-9"] : []),
     ...(options.specialChar
@@ -51,10 +61,8 @@ function PasswordInput({
   const validatePassword = () => {
     const errors: string[] = [];
 
-    if (options.length && password.length < options.length) {
-      errors.push(
-        `Password must be at least ${options.length} characters long`
-      );
+    if (minPasslength && password.length <= minPasslength) {
+      errors.push(`Password must be at least ${minPasslength} characters long`);
     }
 
     if (options.uppercase && !/[A-Z]/.test(password)) {
@@ -77,13 +85,13 @@ function PasswordInput({
     const newPassword: string = e.target.value;
     setPassword(newPassword);
     onChange ? onChange(newPassword) : null;
-    isPasswordValid ? isPasswordValid(valid) : null;
   };
 
   return (
     <div className={Styles.PasswordInput}>
       <div className={Styles.PasswordInput_input}>
         <input
+          data-testid="password-input"
           disabled={isDisabled}
           type="password"
           id="password"

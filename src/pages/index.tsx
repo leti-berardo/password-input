@@ -15,6 +15,10 @@ export default function Home() {
     specialChar: specialChar,
   };
 
+  function isPasswordValid(evt) {
+    console.log(evt);
+  }
+
   return (
     <main className={styles.Main}>
       <div className={styles.Main_inputPropsTest}>
@@ -62,7 +66,10 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.Main_card}>
-        <PasswordInput options={passwordReqs}></PasswordInput>
+        <PasswordInput
+          isPasswordValid={(evt) => isPasswordValid(evt)}
+          options={passwordReqs}
+        ></PasswordInput>
       </div>
     </main>
   );
