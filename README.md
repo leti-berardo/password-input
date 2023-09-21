@@ -19,7 +19,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ```bash
 npm run tests
 ```
-
-## Notes about my decisions
-
-- I choose to use tailwind just to simplify the css, even so, i loved to work with css using sass with BEM

@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <main className={styles.Main}>
-      <div className="max-w-xl mx-auto my-10 bg-white rounded-lg shadow-md p-5">
+      <div className={styles.Main_card}>
         <PasswordInput options={passwordReqs}></PasswordInput>
       </div>
     </main>

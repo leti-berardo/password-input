@@ -5,6 +5,8 @@ import {
   faCircleXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
+import Styles from "./password-input.module.scss";
+
 interface PasswordOptions {
   length?: number;
   uppercase?: boolean;
@@ -71,27 +73,28 @@ function PasswordInput({
   };
 
   return (
-    <div className="block md:flex">
-      <div className="w-1/3">
+    <div className={Styles.PasswordInput}>
+      <div className={Styles.PasswordInput_input}>
         <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
           type="password"
           id="password"
           value={password}
           onChange={handlePasswordChange}
         />
       </div>
-      <div className="w-2/3 px-2">
+      <div className={Styles.PasswordInput_info}>
         {passwordRequirements.map((requirement, index) => (
-          <div className="flex my-2" key={index}>
-            <div className="w-1/12 flex justify-center">
+          <div className={Styles.PasswordInput_info_container} key={index}>
+            <div className={Styles.PasswordInput_info_container_icon}>
               {errors.includes(requirement) ? (
                 <FontAwesomeIcon icon={faCircleXmark} color="red" />
               ) : (
                 <FontAwesomeIcon icon={faSquareCheck} color="green" />
               )}
             </div>
-            <p className="error text-xs ml-3 w-11/12">{requirement}</p>
+            <p className={Styles.PasswordInput_info_container_error}>
+              {requirement}
+            </p>
           </div>
         ))}
         {valid && <p className="success">Password is strong and valid!</p>}

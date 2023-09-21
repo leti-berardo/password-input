@@ -1,3 +1,15 @@
 .Main {
-  background-color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 5rem;
+
+  &_ {
+    &card {
+      background-color: #f3f3f3;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      width: 70%;
+    }
+  }
 }
