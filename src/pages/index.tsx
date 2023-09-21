@@ -1,23 +1,19 @@
 import { useState } from "react";
-import styles from "./PageIndex.module.scss";
 import PasswordInput from "@/components/password-input";
+import styles from "./PageIndex.module.scss";
 
 export default function Home() {
-  const [passLength, setPassLength] = useState(8);
-  const [uppercase, setUppercase] = useState(true);
   const [number, setNumber] = useState(true);
+  const [passLength, setPassLength] = useState(8);
   const [specialChar, setSpecialChar] = useState(true);
+  const [uppercase, setUppercase] = useState(true);
 
   const passwordReqs = {
     length: passLength,
-    uppercase: uppercase,
     number: number,
     specialChar: specialChar,
+    uppercase: uppercase,
   };
-
-  function isPasswordValid(evt) {
-    console.log(evt);
-  }
 
   return (
     <main className={styles.Main}>
@@ -66,10 +62,7 @@ export default function Home() {
         </div>
       </div>
       <div className={styles.Main_card}>
-        <PasswordInput
-          isPasswordValid={(evt) => isPasswordValid(evt)}
-          options={passwordReqs}
-        ></PasswordInput>
+        <PasswordInput options={passwordReqs}></PasswordInput>
       </div>
     </main>
   );

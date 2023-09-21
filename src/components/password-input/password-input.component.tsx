@@ -30,16 +30,16 @@ function PasswordInput({
     specialChar: false,
   },
 }: PasswordComponentProps) {
+  const [errors, setErrors] = useState<string[]>([]);
   const [password, setPassword] = useState<string>("");
   const [valid, setValid] = useState<boolean>(false);
-  const [errors, setErrors] = useState<string[]>([]);
   const [minPasslength, setMinPassLength] = useState(
     options.length ? options.length : 8
   );
 
   useEffect(() => {
     validatePassword();
-  }, [password]);
+  }, [password, minPasslength]);
 
   useEffect(() => {
     isPasswordValid ? isPasswordValid(valid) : null;
