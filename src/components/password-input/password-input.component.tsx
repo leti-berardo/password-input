@@ -14,11 +14,18 @@ interface PasswordOptions {
 }
 
 interface PasswordComponentProps {
+  isDisabled?: boolean;
+  isPasswordValid?: (valid: boolean) => {};
+  onChange?: (newPass: string) => {};
   options: PasswordOptions;
 }
 
 function PasswordInput({
+  isDisabled = false,
+  onChange,
+  isPasswordValid,
   options = {
+    length: 8,
     uppercase: false,
     number: false,
     specialChar: false,
@@ -28,14 +35,12 @@ function PasswordInput({
   const [valid, setValid] = useState<boolean>(false);
   const [errors, setErrors] = useState<string[]>([]);
 
-  const length = options.length ? options.length : 8;
-
   useEffect(() => {
     validatePassword();
-  }, [password]);
+  }, [password, options.length]);
 
   const passwordRequirements: string[] = [
-    `Password must be at least ${length} characters long`,
+    `Password must be at least ${options.length} characters long`,
     ...(options.uppercase ? ["Has an uppercase letter"] : []),
     ...(options.number ? ["Has a number 0-9"] : []),
     ...(options.specialChar
@@ -46,8 +51,10 @@ function PasswordInput({
   const validatePassword = () => {
     const errors: string[] = [];
 
-    if (length && password.length < length) {
-      errors.push(`Password must be at least ${length} characters long`);
+    if (options.length && password.length < options.length) {
+      errors.push(
+        `Password must be at least ${options.length} characters long`
+      );
     }
 
     if (options.uppercase && !/[A-Z]/.test(password)) {
@@ -69,12 +76,15 @@ function PasswordInput({
   const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newPassword: string = e.target.value;
     setPassword(newPassword);
+    onChange ? onChange(newPassword) : null;
+    isPasswordValid ? isPasswordValid(valid) : null;
   };
 
   return (
     <div className={Styles.PasswordInput}>
       <div className={Styles.PasswordInput_input}>
         <input
+          disabled={isDisabled}
           type="password"
           id="password"
           value={password}
