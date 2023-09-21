@@ -1,10 +1,9 @@
-import { useState, ChangeEvent, useEffect } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSquareCheck,
   faCircleXmark,
+  faSquareCheck,
 } from "@fortawesome/free-solid-svg-icons";
-
 import Styles from "./password-input.module.scss";
 
 interface PasswordOptions {

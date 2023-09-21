@@ -41,6 +41,9 @@
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },
+    "moduleNameMapper": {
+      "\\.(css|scss)$": "<rootDir>/emptyModule.ts"
+    },
     "globals": {
       "ts-jest": {
         "tsconfig": {
