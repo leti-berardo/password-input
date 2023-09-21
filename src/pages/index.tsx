@@ -1,4 +1,4 @@
-import "./page_index";
+import "./PageIndex.style";
 import PasswordInput from "@/components/password-input";
 
 export default function Home() {
