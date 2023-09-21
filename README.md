@@ -16,6 +16,16 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Run Tests
 
+Change in `tsconfig.json`
+
+```bash
+"jsx": "react-jsx",
+```
+
+You save the changes?
+
+so now run:
+
 ```bash
 npm run tests
 ```
