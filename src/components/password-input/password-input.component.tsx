@@ -33,13 +33,13 @@ function PasswordInput({
     validatePassword();
   }, [password]);
 
-  const passwordRequirements = [
+  const passwordRequirements: string[] = [
     `Password must be at least ${length} characters long`,
-    options.uppercase ? "Has an uppercase letter" : null,
-    options.number ? "Has a number 0-9" : null,
-    options.specialChar
-      ? "Has one or more of these special characters: !@#$%^&*"
-      : null,
+    ...(options.uppercase ? ["Has an uppercase letter"] : []),
+    ...(options.number ? ["Has a number 0-9"] : []),
+    ...(options.specialChar
+      ? ["Has one or more of these special characters: !@#$%^&*"]
+      : []),
   ];
 
   const validatePassword = () => {
