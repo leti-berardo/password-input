@@ -26,7 +26,7 @@ npm run dev
 npm run tests
 ```
 
-##Notes
+## Notes
 
 - The component includes the errors list at the same level. I would like to destructure it into another component that uses the error list, providing the possibility to adapt it to any screen. The next iteration will incorporate this option.
 - I added an onChange event so there exists the possibility to use it in a form and obtain the current value (I added tests for this).
